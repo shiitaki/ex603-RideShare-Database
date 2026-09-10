@@ -1,4 +1,4 @@
-Task 1.4 — Modelling Justification
+
 The database design uses five relations: riders, drivers, trips, driver_badges, and driver_badge_awards. The main design goal is to keep the data consistent while supporting common ride-platform operations such as creating trips, looking up riders and drivers, recording completed journeys, and tracking driver achievements.
 
 For the primary keys, I chose a single integer identifier for each entity: rider_id, driver_id, trip_id, badge_id, and award_id. These are surrogate keys rather than using attributes such as names, email addresses, or licence numbers. Surrogate integer keys are stable, compact, and efficient for indexing and joining tables. Names can change and therefore are unsuitable as identifiers. Although an email address or licence number may be unique, they are business attributes that could change or have different validation requirements. They can still be protected with UNIQUE constraints where appropriate without making them the primary key. The award_id also provides a simple identifier for each badge-award record.
