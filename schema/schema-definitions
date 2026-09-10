@@ -1,0 +1,35 @@
+riders(
+    rider_id: INTEGER PK,
+    first_name: VARCHAR,
+    last_name: VARCHAR,
+    email: VARCHAR
+)
+
+drivers(
+    driver_id: INTEGER PK,
+    first_name: VARCHAR,
+    last_name: VARCHAR,
+    license_number: VARCHAR
+)
+
+trips(
+    trip_id: INTEGER PK,
+    rider_id: INTEGER FK,
+    driver_id: INTEGER FK,
+    fare_amount: DECIMAL,
+    start_time: TIMESTAMP,
+    end_time: TIMESTAMP
+)
+
+driver_badges(
+    badge_id: INTEGER PK,
+    badge_name: VARCHAR,
+    description: VARCHAR
+)
+
+driver_badge_awards(
+    award_id: INTEGER PK,
+    driver_id: INTEGER FK,
+    badge_id: INTEGER FK,
+    awarded_at: TIMESTAMP
+)
