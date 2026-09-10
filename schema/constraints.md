@@ -1,0 +1,29 @@
+Table	Constraint	Definition	ON DELETE	Justification
+trips	PK	trip_id is the primary key	—	Uniquely identifies every trip.
+trips	FK	rider_id → riders(rider_id)	RESTRICT	A rider should not be deleted while trips referencing that rider exist; this preserves trip history.
+trips	FK	driver_id → drivers(driver_id)	RESTRICT	A driver should not be deleted while historical trips reference them.
+driver_badge_awards	PK	award_id is the primary key	—	Uniquely identifies each badge award.
+driver_badge_awards	FK	driver_id → drivers(driver_id)	CASCADE	If a driver is permanently deleted, their badge-award records have no meaning and should be removed automatically.
+driver_badge_awards	FK	badge_id → driver_badges(badge_id)	RESTRICT	A badge should not be deleted while awards reference it, preventing loss of the badge definition behind historical awards.
+
+All primary keys should be NOT NULL
+All foreign keys referencing back to the primary will also be NOT NULL. Every trup must have a rider and driver, and an award must belong to a driver and a badge
+
+Rider constraints
+
+riders.email should be UNIQUE to prevent multiple rider accounts using the same email.
+first_name, last_name, and email should be NOT NULL.
+Driver constraints
+
+drivers.license_number should be UNIQUE.
+first_name, last_name, and license_number should be NOT NULL.
+Badge constraints
+
+driver_badges.badge_name should be UNIQUE.
+badge_name should be NOT NULL.
+Trip constraints
+
+fare_amount >= 0.
+start_time should be NOT NULL.
+end_time should be NOT NULL.
+end_time >= start_time.
