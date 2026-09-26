@@ -35,20 +35,29 @@ CREATE TABLE driver_badges (
     description VARCHAR(255)
 );
 
--- 4. Create Trips Table
+-- 4. Create Trips Table (Explicit Format)
 CREATE TABLE trips (
     trip_id INTEGER PRIMARY KEY,
-    rider_id INTEGER REFERENCES riders(rider_id) ON DELETE CASCADE,
-    driver_id INTEGER REFERENCES drivers(driver_id) ON DELETE SET NULL,
+    rider_id INTEGER NOT NULL,
+    driver_id INTEGER,
     fare_amount DECIMAL(10, 2) NOT NULL,
     start_time TIMESTAMP NOT NULL,
-    end_time TIMESTAMP
+    end_time TIMESTAMP,
+    
+    -- Explicit Foreign Key Constraints
+    FOREIGN KEY (rider_id) REFERENCES riders(rider_id) ON DELETE CASCADE,
+    FOREIGN KEY (driver_id) REFERENCES drivers(driver_id) ON DELETE SET NULL
 );
 
--- 5. Create Driver Badge Awards Table
+-- 5. Create Driver Badge Awards Table (Explicit Format)
 CREATE TABLE driver_badge_awards (
     award_id INTEGER PRIMARY KEY,
-    driver_id INTEGER REFERENCES drivers(driver_id) ON DELETE CASCADE,
-    badge_id INTEGER REFERENCES driver_badges(badge_id) ON DELETE CASCADE,
-    awarded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    driver_id INTEGER NOT NULL,
+    badge_id INTEGER NOT NULL,
+    awarded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    -- Explicit Foreign Key Constraints
+    FOREIGN KEY (driver_id) REFERENCES drivers(driver_id) ON DELETE CASCADE,
+    FOREIGN KEY (badge_id) REFERENCES driver_badges(badge_id) ON DELETE CASCADE
 );
+
